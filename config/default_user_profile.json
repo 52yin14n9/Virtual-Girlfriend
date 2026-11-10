@@ -1,0 +1,24 @@
+{
+  "schema_version": 19,
+  "stable": {
+    "identity": "示例用户",
+    "birthday": "",
+    "education": [],
+    "skills": [],
+    "interests": [],
+    "games": []
+  },
+  "dynamic": {
+    "current_focus": [],
+    "recent_games": [],
+    "preferences": {},
+    "status_notes": [],
+    "preferred_name": "你",
+    "casual_aliases": [],
+    "address_style": {
+      "default": "你",
+      "casual": "",
+      "casual_usage": ""
+    }
+  }
+}

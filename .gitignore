@@ -1,0 +1,14 @@
+.env
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.idea/
+.vscode/
+data/memory/*.json
+data/rag/*.jsonl
+data/summaries/*.json
+data/profile/*.json
+data/scheduler/*.json
+data/qq/*.jsonl
+data/qq/*.log

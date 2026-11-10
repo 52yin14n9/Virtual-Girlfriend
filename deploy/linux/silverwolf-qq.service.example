@@ -1,0 +1,23 @@
+[Unit]
+Description=SilverWolf lv18 QQ Gateway
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=CHANGE_ME
+WorkingDirectory=/opt/silverwolf-lv18
+ExecStart=/opt/silverwolf-lv18/.venv/bin/python /opt/silverwolf-lv18/examples/run_qq.py
+Restart=always
+RestartSec=5
+TimeoutStopSec=30
+Environment=PYTHONUNBUFFERED=1
+
+# 安全加固：按实际目录权限调整
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=full
+ReadWritePaths=/opt/silverwolf-lv18/data
+
+[Install]
+WantedBy=multi-user.target

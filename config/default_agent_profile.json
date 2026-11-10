@@ -1,0 +1,20 @@
+{
+  "schema_version": 2,
+  "identity": {
+    "name": "示例角色",
+    "birthday": "2000-01-01",
+    "birthday_display": "1月1日",
+    "qq": {
+      "has_account": false,
+      "nickname": "示例昵称",
+      "signature": "示例签名，请自行替换",
+      "account_number": null,
+      "account_number_note": "不要猜测或编造 QQ 号。"
+    }
+  },
+  "rules": {
+    "age_is_dynamic": true,
+    "do_not_store_current_age": true,
+    "description": "年龄按生日与当前日期实时计算。"
+  }
+}

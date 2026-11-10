@@ -1,0 +1,8 @@
+python-dotenv>=1.0.0
+
+Flask>=3.1,<4
+
+websockets>=15,<17
+
+# Windows 的 zoneinfo 需要 IANA 时区数据库
+tzdata>=2025.2

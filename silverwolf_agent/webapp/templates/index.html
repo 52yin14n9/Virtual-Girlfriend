@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1"
+  >
+  <title>银狼 lv18 // Neural Link</title>
+  <link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='style.css') }}"
+  >
+</head>
+<body>
+  <div class="noise" aria-hidden="true"></div>
+  <div class="scanlines" aria-hidden="true"></div>
+
+  <div class="shell">
+    <aside class="sidebar">
+      <header class="brand">
+        <div class="brand-mark">SW</div>
+        <div>
+          <p class="eyebrow">NEURAL LINK</p>
+          <h1>银狼 <span>lv9</span></h1>
+        </div>
+      </header>
+
+      <section class="status-card">
+        <div class="status-row">
+          <span class="status-dot" id="status-dot"></span>
+          <span id="status-text">CONNECTING</span>
+        </div>
+        <dl>
+          <div>
+            <dt>MODEL</dt>
+            <dd id="model-name">--</dd>
+          </div>
+          <div>
+            <dt>PLANNER</dt>
+            <dd id="planner-mode">--</dd>
+          </div>
+          <div>
+            <dt>TIME</dt>
+            <dd id="server-time">--:--:--</dd>
+          </div>
+          <div>
+            <dt>ZONE</dt>
+            <dd id="timezone">--</dd>
+          </div>
+          <div>
+            <dt>AGE</dt>
+            <dd id="agent-age">--</dd>
+          </div>
+          <div>
+            <dt>BIRTHDAY</dt>
+            <dd id="agent-birthday">--</dd>
+          </div>
+          <div>
+            <dt>FOLLOW-UP</dt>
+            <dd id="follow-up-state">IDLE</dd>
+          </div>
+          <div>
+            <dt>PLANS</dt>
+            <dd id="plan-count">0</dd>
+          </div>
+        </dl>
+      </section>
+
+      <section class="panel compact">
+        <div class="panel-title">
+          <span>主动行为</span>
+          <button
+            type="button"
+            class="ghost-button"
+            id="tick-button"
+          >
+            CHECK
+          </button>
+        </div>
+        <p class="panel-copy">
+          后台调度器会在到期时直接把消息推送到此页面。
+        </p>
+      </section>
+
+      <section class="panel time-panel">
+        <div class="panel-title">
+          <span>时间管理</span>
+        </div>
+        <label>
+          <span>MORNING</span>
+          <input
+            type="time"
+            id="time-morning"
+            data-slot="morning"
+          >
+        </label>
+        <label>
+          <span>NOON</span>
+          <input
+            type="time"
+            id="time-noon"
+            data-slot="noon"
+          >
+        </label>
+        <label>
+          <span>EVENING</span>
+          <input
+            type="time"
+            id="time-evening"
+            data-slot="evening"
+          >
+        </label>
+      </section>
+    </aside>
+
+    <main class="chat-frame">
+      <header class="chat-header">
+        <div>
+          <p class="eyebrow">PRIVATE CHANNEL</p>
+          <h2>星 / 银狼</h2>
+        </div>
+        <div class="link-state">
+          <span class="pulse"></span>
+          LIVE STREAM
+        </div>
+      </header>
+
+      <section
+        class="message-list"
+        id="message-list"
+        aria-live="polite"
+      >
+        <div class="empty-state" id="empty-state">
+          <div class="terminal-glyph">&gt;_</div>
+          <p>连接已经建立。</p>
+          <span>
+            她的主动消息会直接出现在这里。
+          </span>
+        </div>
+      </section>
+
+      <div class="composer-wrap">
+        <div class="typing-state" id="typing-state">
+          <span></span>
+          <span></span>
+          <span></span>
+          <b>银狼正在处理</b>
+        </div>
+        <form class="composer" id="chat-form">
+          <textarea
+            id="message-input"
+            rows="1"
+            maxlength="4000"
+            placeholder="给银狼发消息…"
+            autocomplete="off"
+          ></textarea>
+          <button
+            type="submit"
+            id="send-button"
+          >
+            SEND
+          </button>
+        </form>
+        <p class="composer-hint">
+          Enter 发送 · Shift + Enter 换行 ·
+          消息时间由服务端记录
+        </p>
+      </div>
+    </main>
+
+    <aside class="inspector">
+      <section class="panel">
+        <div class="panel-title">
+          <span>计划队列</span>
+          <button
+            class="ghost-button"
+            type="button"
+            id="refresh-plans"
+          >
+            REFRESH
+          </button>
+        </div>
+        <div class="plan-list" id="plan-list">
+          <p class="muted">暂无计划。</p>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-title">
+          <span>时间事实</span>
+        </div>
+        <p class="panel-copy">
+          每条用户消息、助手回复和主动消息都保存带时区的精确时间。
+        </p>
+        <div class="fact-line">
+          <span>LAST EVENT</span>
+          <strong id="last-event-time">--</strong>
+        </div>
+      </section>
+
+      <section class="panel system-log">
+        <div class="panel-title">
+          <span>LINK LOG</span>
+        </div>
+        <div id="system-log">
+          <p>[BOOT] waiting for runtime…</p>
+        </div>
+      </section>
+    </aside>
+  </div>
+
+  <template id="message-template">
+    <article class="message">
+      <div class="message-meta">
+        <span class="message-role"></span>
+        <time></time>
+      </div>
+      <div class="message-body"></div>
+      <div class="message-tags"></div>
+    </article>
+  </template>
+
+  <script
+    src="{{ url_for('static', filename='app.js') }}"
+    defer
+  ></script>
+</body>
+</html>
